@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>Personal Blog</title>
+
+<style type="text/css">
+
+* { padding: 0; margin:0;box-sizing: border-box;  }
+
+body{font-family: Helvetica, Sans-Serif; font-weight: bold ; background-image: url('images/handwriting5.jpg');
+    background-repeat: no-repeat ;
+    background-position: 50% 90px; 
+    height: 120vh;
+    
+    
+    }
+a{text-decoration:none ;color:#372e29}
+li{list-style-type: none}
+
+
+header{ 
+	width: 100%; 
+	height:50px; 
+	margin:auto; 
+	border-bottom: 1px solid #372e29;
+}
+
+#brand{
+	float: left ;
+	line-height: 50px;
+	font-family: Rockwell;
+	font-weight: bold;
+	font-size:25px;
+    margin-left: 15px;
+    margin-top: 6px;
+  
+}
+
+nav{
+	height: 40px;
+	width: 250px;
+	display: block;
+	margin: 0 auto;
+	text-align: center;
+	margin-left: 2px;
+	
+    
+}
+
+nav a{
+	display: block;
+	text-decoration: none;
+	background: #f8d17f;
+	font-size: 13pt;
+	border-left: : 1px solid #C8B281;
+    border-right: 1px solid #C8B281;
+    border-bottom: 1px solid #C8B281;
+    border-top: 1px solid #C8B281;
+}
+
+
+nav a:hover{
+	background: #F1A400;
+	color: #4C3100;
+	font-size: 18px;
+}
+
+
+nav ul{
+	list-style: none;
+
+
+}
+
+nav ul li{
+	position: relative;
+	float:left;
+	width: 170px;
+	height: 40px;
+	line-height: 40px;
+     
+}
+
+
+
+nav ul li ul li{
+	position: relative;
+    display: none;
+    width: 260px;
+    left: 170.5px;
+}
+
+nav ul li ul li ul li{
+
+	
+	width: 200px;
+	border: 1px solid #C8B281;
+	left: 100%;
+	top: -40px;
+	visibility: hidden;
+	
+}
+
+nav ul li ul li a{
+	text-align:center;
+	margin-top: -42px;
+	
+}
+
+nav ul li ul li ul li a{
+    
+	padding-left: 10px ;
+	text-align:center;
+	
+}
+
+
+
+
+nav ul li:hover ul li {
+	float: left;
+	display: block;
+	animation: submenu 500ms forwards;
+}
+
+ @keyframes submenu{
+ 	0%{
+ 		opacity: 0;
+ 		top:5px;
+ 	}
+ 	100%{
+ 		opacity: 1;
+ 		top:0px;
+ 	}
+}
+
+
+
+nav ul li ul li:hover ul li{
+    
+    display: block;
+	visibility: visible;
+	animation: navmenu 500ms forwards;
+}
+
+ @keyframes navmenu{
+ 	0%{
+ 		opacity: 0;
+ 		top:5px;
+ 	}
+ 	100%{
+ 		opacity: 1;
+ 		top:0px;
+ 	}
+}
+
+
+
+.menu{
+	width: 100px;
+	height: 100px;
+	position: relative;
+	left : -2400px;
+	transition: all .6s ease-in-out;
+    -webkit-transition: all .6s ease-in-out;
+	-moz-transition: all .6s ease-in-out;
+	-ms-transition: all .6s ease-in-out;
+	-o-transition: all .6s ease-in-out;
+	
+
+    
+}
+
+.menu-icon{
+	padding: 10px 20px;
+	background: #f8d17f;
+	color: #372e29;
+	cursor: pointer;
+	float: right;
+	margin: 5px;
+	border-radius: 5px;
+	margin-right: 10px;
+	
+}
+
+
+.home-icon{
+	color: #372e29;
+	cursor: pointer;
+	float: right;
+	margin: 9px;
+	border-radius: 5px;
+	margin-right: 5px;
+
+}
+
+
+
+#menuToggle{
+	display: none;
+}
+
+#menuToggle:checked ~ .menu {position: absolute; left: 2px;}
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<input type="checkbox" id="menuToggle">
+<label for="menuToggle" class="menu-icon">&#9776;</label>
+
+
+<a class="home-icon" href="index.html">
+                    <img src="images/home.png">
+                    </a>
+
+<header>
+	<div id="brand" position="fixed">PERSONAL BLOG</div>
+</header>
+
+
+
+<nav class="menu">
+	<ul>
+		<li><a href="">General</a>
+            <ul>
+				<li><a href="">Linux</a></li>
+				<li><a href="">Elastic Search</a></li>
+			</ul>
+		</li>
+		<li><a href="">DevOps</a>
+			<ul>
+				<li><a href="">What is DevOps</a></li>
+				<li><a href="">Configuration Management</a></li>	
+			</ul>
+		</li>
+		<li><a href="datascience.html">Data Science</a></li>
+		<li><a href="">Tools</a>
+			<ul>
+				<li><a href="">Ansible</a></li>
+				<li><a href="">Vagrant</a></li>
+				<li><a href="">Docker</a></li>
+				<li><a href="">Git</a></li>
+			</ul>
+		</li>	
+		<li><a href="">Other</a></li>
+	</ul>
+</nav>
+
+</body>
+</html>

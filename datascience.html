@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+ 
+<head>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+     <title>Data Science</title>
+
+     <style type="text/css">
+
+     @import url('https://fonts.googleapis.com/css?family=Vollkorn');
+
+        * { margin: 0; padding: 0; }
+        body { font: 16px Helvetica, Sans-Serif; line-height: 24px;  }
+        .clear { clear: both; }
+        #page-wrap { width: 800px; margin: 80px auto 80px;  }
+        h1 { margin: 0 0 16px 0; padding: 0 0 16px 0; font-size: 42px; font-weight: bold; letter-spacing: -2px; }
+
+        h2 { color:#372e29; font-size: 20px; margin: 0 0 6px 0; position: relative; }
+        h2 span {display:block;  bottom: 0; right: 0; font-style: italic; font-family: Georgia, Serif; font-size: 16px; color: #B27300; font-weight: bold; }
+        p { margin: 0 0 16px 0; }
+        a { color: #999; text-decoration: none; border-bottom: 1px dotted #999; }
+        #brand a{text-decoration: none; border-bottom: none;}
+        a.icon{ border-bottom: none }
+        a.icon:hover{ border-bottom-style:none; }
+        a:hover { border-bottom-style: solid; color: black; }
+        ul { margin: 0 0 15px 2px; }
+        h2.other { margin: 16px; position:all}
+        #objective { width: 800px;  margin-bottom: 100px; padding-right: 20px; border-right: 3px solid lightgrey;}
+        #objective p { font-family: Georgia, Serif; font-style: italic; color: #726255; margin-top: 10px; text-align: justify;}
+        #objective p.addition {font-family: Helvetica, Sans-Serif; font-style: normal; margin-bottom: 35px ; color: black;}
+        dt { font-style: italic; font-weight: bold; font-size: 18px; text-align: right; padding: 0 32px 0 0; width: 100px; float: left; height: 100px; border-right: 2px solid #f0c75e; color:#4C3100; }
+        dd { width: 640px; float: right; }
+        dd.clear { float: none; margin: 0; height: 15px; }
+
+
+header{ 
+    width: 100%; 
+    height:50px; 
+    margin:auto; 
+    border-bottom: 1px solid #9b9694;
+}
+
+
+#brand{
+    float: left ;
+    line-height: 50px;
+    font-family: Rockwell;
+    font-weight: bold;
+    font-size:25px;
+    margin-left: 15px;
+    margin-top: 6px;
+    cursor: pointer;
+    width: 222px;
+    height: 50px;
+
+}
+
+
+#brand.new{
+    border-bottom: none;
+    text-decoration:none;
+    margin-left: -222px;
+    color: initial;
+}
+
+nav{
+    
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-left: 2px;
+    font-family: Helvetica, Sans-Serif; 
+    font-weight: bold ;
+    
+    
+}
+
+nav a{
+    display: block;
+    text-decoration: none;
+    background: #f8d17f;
+    font-size: 13pt;
+    border-left: : 1px solid #C8B281;
+    border-right: 1px solid #C8B281;
+    border-bottom: 1px solid #C8B281;
+    border-top: 1px solid #C8B281;
+    color:#372e29;
+}
+
+
+nav a:hover{
+    background: #F1A400;
+    color: #4C3100;
+    font-size: 18px;
+}
+
+
+nav ul{
+    list-style: none;
+
+
+}
+
+nav ul li{
+    position: relative;
+    float:left;
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+     
+}
+
+
+
+nav ul li ul li{
+    position: relative;
+    display: none;
+    width: 260px;
+    left: 169px;
+}
+
+nav ul li ul li ul li{
+
+    
+    width: 200px;
+    border: 1px solid #C8B281;
+    left: 100%;
+    top: -40px;
+    visibility: hidden;
+    
+}
+
+nav ul li ul li a{
+    text-align:center;
+    margin-top: -42px;
+    
+}
+
+nav ul li ul li ul li a{
+    
+    padding-left: 10px ;
+    text-align:center;
+    
+}
+
+
+
+
+nav ul li:hover ul li {
+    float: left;
+    display: block;
+    animation: submenu 500ms forwards;
+}
+
+ @keyframes submenu{
+    0%{
+        opacity: 0;
+        top:5px;
+    }
+    100%{
+        opacity: 1;
+        top:0px;
+    }
+}
+
+
+
+nav ul li ul li:hover ul li{
+    
+    display: block;
+    visibility: visible;
+    animation: navmenu 500ms forwards;
+}
+
+ @keyframes navmenu{
+    0%{
+        opacity: 0;
+        top:5px;
+    }
+    100%{
+        opacity: 1;
+        top:0px;
+    }
+}
+
+
+.menu{
+    width: 100px;
+    position: relative;
+    left : -2400px;
+    transition: all .6s ease-in-out;
+    -webkit-transition: all .6s ease-in-out;
+    -moz-transition: all .6s ease-in-out;
+    -ms-transition: all .6s ease-in-out;
+    -o-transition: all .6s ease-in-out;
+    
+
+    
+}
+
+.menu-icon{
+    padding: 10px 20px;
+    background: #f8d17f;
+    color: #372e29;
+    cursor: pointer;
+    float: right;
+    margin: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    
+
+}
+
+#menuToggle{
+    display: none;
+}
+
+#menuToggle:checked ~ .menu {position: absolute; left: 2px;}
+
+
+     </style>
+</head>
+
+<body>
+
+<input type="checkbox" id="menuToggle">
+<label for="menuToggle" class="menu-icon">&#9776;</label>
+
+<header>
+    <div id="brand" position="fixed">PERSONAL BLOG</div>
+    <a id="brand" class="new" href="blog.html"></a>
+</header>
+
+
+<nav class="menu">
+    <ul>
+        <li><a href="">General</a>
+            <ul>
+                <li><a href="">Linux</a></li>
+                <li><a href="">Elastic Search</a></li>
+            </ul>
+        </li>
+        <li><a href="">DevOps</a>
+            <ul>
+                <li><a href="">What is DevOps</a></li>
+                <li><a href="">Configuration Management</a></li>    
+            </ul>
+        </li>
+        <li><a href="datascience.html">Data Science</a></li>
+        <li><a href="">Tools</a>
+            <ul>
+                <li><a href="">Ansible</a></li>
+                <li><a href="">Vagrant</a></li>
+                <li><a href="">Docker</a></li>
+                <li><a href="">Git</a></li>
+            </ul>
+        </li>   
+        <li><a href="">Other</a></li>
+    </ul>
+</nav>
+
+    <div id="page-wrap">
+        
+        <div id="contact-info" class="vcard" >
+        
+            <!-- Microformats! -->
+        
+            <h1 class="fn">Data Science </h1>
+        
+          
+        </div>
+                
+        <div id="objective" >
+            <p>
+                Data science is an interdisciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from data in various forms, both structured and unstructured, similar to data mining.
+                Data science is a "concept to unify statistics, data analysis, machine learning and their related methods" in order to "understand and analyze actual phenomena" with data.It employs techniques and theories drawn from many fields within the context of mathematics, statistics, information science, and computer science.
+                Data analysts carry out their job of engaging data using a well refined, multi-phased process. Their goal is to interpret raw data by converting it into useful and actionable intelligence. What does this process entail exactly?
+                <ul style="margin-bottom:20px">
+                    <li><b>Collecting Data</b> from various sources</li>
+                    <li><b>Wrangling Data</b>  to make it more reliable</li>
+                    <li><b>Exploring Data</b>  using statistics and visualizations</li>
+                    <li><b>Transforming Data</b>  to prepare it for modeling</li>
+                    <li><b>Modeling Data</b>  using the right machine learning algorithms</li>
+                    <li><b>Evaluating</b>  the results of the data models</li>
+                </ul>
+            </p>
+            <p>Types of Machine Learning: </p>
+            <ul style="margin-bottom:20px">
+                    <li><b>unsupervised learning</b> Given a lot of data, the computer hasn't the slightest idea what any of it means. figure out if there are any meaningful groupings and patterns within the data, along with instances where that data seems out of place</li>
+                    <li><b>supervised learning</b> with supervised learning, the computer is in charge of taking your data and then fitting rules and equations to it. Once it learns these generalized rules through a process called modeling, the rules can be applied to data the computer has never seen before</li>
+                    <li><b>reinforcement learning</b> It allows machines and software agents to automatically determine the ideal behaviour within a specific context, in order to maximize its performance. Simple reward feedback is required for the agent to learn its behaviour; this is known as the reinforcement signal.</li>
+                </ul>
+
+            <p>The Possibilities:</p>
+            <ul style="margin-bottom:20px">
+                    <li><b>classification </b> The goal of classification is to identify what class a sample belongs to. <br />Examples; </li>
+                    <ul style="list-style-type:circle"><li>Given a list of emails marked spam and not-spam, figure out if a newly received message is actually spam or not.</li><li>Given many different images of your friends, perform facial recognition on a new, never-before seen image of one of your friends.</li><li>After being trained with a few books, decide which of the before seen authors wrote an unidentified article.</li><li>Given a list of physical symptoms, determine what ailment a person has.</li></ul> 
+
+                    <p class="addition">Classification falls into the realm of supervised learning because for it to work, you have to guide the computer by proving it with examples of correctly labeled records. Once you're done training the computer, you can test it by seeing how accurately it scores those new records.</p> 
+                    
+                    <li><b>regression </b> The goal of regression is to predict continuous-valued features associated with many samples. Continuous-valued meaning small changes in the input result in small changes of the output.With regression, a mathematical relationship is modeled for your samples so that as you gently alter an input feature, your output feature(s) respond by being altered as well.<br />Examples; </li>
+                    <ul style="list-style-type:circle"><li>Calculate an equation to predict the size of a house given its price, or the price of a house given its size.</li><li>Explore if a correlation exists between the hours a student spends studying, spends watching TV, and their final exam score.</li><li>Estimate how many power plants should be constructed in the next 50 years, based upon the historical energy consumption per household.</li><li>Figure out how many days a person has left to live based on the severity of their symptoms.</li></ul> 
+
+                    <p class="addition">Regression falls into the realm of supervised learning because you have to provide the computer with labeled samples. It then attempts to fit an equation to the samples' features.</p> 
+                   
+                    <li><b>clustering </b>The goal of clustering is to automatically group similar samples into sets.
+                    Since a clustering algorithm has no prior knowledge of how the sets should be defined, and furthermore, since the clustering process is unsupervised, it needs to have a way to tell which samples are the most similar so it can group them accordingly. It does this the same way we humans do: by looking at the various characteristics and features of each sample.<br />Examples; 
+                    </li><ul style="list-style-type:circle"><li>Match similar people on a matrimonial website based on their profile answers.</li><li>Through examining search history, recommend houses a prospective home-buyer might be interested in buying.</li><li>Pinpoint the most likely location for a future earthquake using past seismic data.</li><li>Identify new characteristics shared by different people suffering from the same disease.</li></ul> 
+
+                    <p class="addition">There are different types of clustering algorithms, some supervised, some unsupervised. There are even semi-supervised clustering methods as well.<br /> You'll only be dealing with unsupervised clustering. In other words, the clustering algorithm you will use won't need anything except your raw data. No labels hinting at desired clustering outcome will be provided to the algorithm.</p> 
+
+                    <li><b>dimensionality reduction </b>The goal of dimensionality reduction is to systematically and intelligently reduce the number of features considered in a dataset.<br />Examples; 
+                    </li><ul style="list-style-type:circle"><li>Given a 100 question survey, attempt to find the gist of what is truly being assessed; then rephrase it with just 5 questions.</li><li>Build a robot that can recognize pictures of similar objects, even if they are rotated at odd angles and orientations.</li><li>Compress a video stream by reducing the number of colors.</li><li>Summarize a long book.</li></ul> 
+
+                    <p class="addition">Dimensionality reduction falls into the realm of unsupervised learning because you don't instruct the computer which features you want it to create. Rather, the computer infers this information automatically by examining your unlabeled data.</p> 
+                    <a class="icon" href="blog.html">
+                    <img src="images/back1.png">
+                    </a>
+                    <a class="icon" href="index.html">
+                    <img src="images/house.png">
+                    </a>
+
+
+                </ul>
+        </div>
+        
+    </div>
+    
+</body>
+
+</html>
