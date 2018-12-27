@@ -1,0 +1,488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <!-- font-family: Retina,"Helvetica Neue",Helvetica,Arial,sans-serif; -->
+
+ 
+<head>  
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+     <title>CI/CD with Jenkins in AWS</title>
+
+     <style type="text/css">
+
+     @import url('https://fonts.googleapis.com/css?family=Vollkorn');
+
+        * { margin: 0; padding: 0; }
+        body { font: 16px Helvetica, Sans-Serif; line-height: 24px; }
+        .clear { clear: both; }
+        #page-wrap { width: 800px; margin: 80px auto 80px;  }
+        h1 { margin: 0 0 16px 0; padding: 0 0 16px 0; font-size: 42px; font-weight: bold; letter-spacing:-2px;line-height: 1; }
+        h1 p {font-size: 40px; font-weight: normal;line-height: 1; }
+        h2 { color:#372e29; font-size: 20px; margin: 0 0 6px 0; position: relative; }
+        h2 span {display:block;  bottom: 0; right: 0; font-style: italic; font-family: Georgia, Serif; font-size: 16px; color: #B27300; font-weight: bold; }
+        p { margin: 0 0 16px 0; }
+        a { color: #999; text-decoration: none; border-bottom: 1px dotted #999; }
+        #brand a{text-decoration: none; border-bottom: none;}
+        a.icon{ border-bottom: none }
+        a.icon:hover{ border-bottom-style:none; }
+        a:hover { border-bottom-style: solid; color: black; }
+        #launch {font-family: Georgia, Serif; font-style: italic; color: #726255; margin-top: 10px; text-align: justify; border-bottom: none; }
+        ul { margin: 0 0 15px 2px; }
+        h2.other { margin: 16px; position:all}
+        #objective { width: 800px;  margin-bottom: 100px; padding-right: 20px; border-right: 3px solid lightgrey;}
+        #objective p { font-family: Georgia, Serif; font-style: italic; color: #726255; margin-top: 10px; text-align: justify;}
+        #objective p.addition {font-family: Helvetica, Sans-Serif; font-style: normal; margin-bottom: 35px ; color: black;}
+        dt { font-style: italic; font-weight: bold; font-size: 18px; text-align: right; padding: 0 32px 0 0; width: 100px; float: left; height: 100px; border-right: 2px solid #f0c75e; color:#4C3100; }
+        #objective ul ul ul {margin: 3px 12px;}
+        #objective ul ul p {font: 16px Helvetica , Sans-Serif; color: #000000; line-height: 24px; margin: 3px 0px; }
+
+        #objective ul ul li {margin-top:20px; }
+        #objective ul li {margin-top: 30px;}
+        
+        .editicon{width:21px; height:22px;}
+
+        dd { width: 640px; float: right; }
+        dd.clear { float: none; margin: 0; height: 15px; }
+
+
+#newline {
+            margin-top:7px;
+        }
+
+#code {
+            border-left: 3px solid #696969;
+            padding-left: 5px;
+            margin-top: 3px;
+        }
+
+#block{
+            padding: 6px;
+            border-style: solid ;
+            border-color: lightgrey;
+            border-width: 2px;
+            color: #404040;
+        }
+
+
+
+#note {
+            color: #A46C48;
+            margin-top: 15px;
+        }
+
+
+header{ 
+    width: 100%; 
+    height:50px; 
+    margin:auto; 
+    border-bottom: 1px solid #9b9694;
+}
+
+
+#brand{
+    float: left ;
+    line-height: 50px;
+    font-family: Rockwell;
+    font-weight: bold;
+    font-size:25px;
+    margin-left: 15px;
+    margin-top: 6px;
+    cursor: pointer;
+    width: 222px;
+    height: 50px;
+
+}
+
+
+#brand.new{
+    border-bottom: none;
+    text-decoration:none;
+    margin-left: -222px;
+    color: initial;
+}
+
+/*nav{
+    
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-left: 2px;
+    font-family: Helvetica, Sans-Serif; 
+    font-weight: bold ;
+    
+    
+}
+
+nav a{
+    display: block;
+    text-decoration: none;
+    background: #f8d17f;
+    font-size: 13pt;
+    border-left: : 1px solid #C8B281;
+    border-right: 1px solid #C8B281;
+    border-bottom: 1px solid #C8B281;
+    border-top: 1px solid #C8B281;
+    color:#372e29;
+}
+
+
+nav a:hover{
+    background: #F1A400;
+    color: #4C3100;
+    font-size: 18px;
+}
+
+
+nav ul{
+    list-style: none;
+
+
+}
+
+nav ul li{
+    position: relative;
+    float:left;
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+     
+}
+
+
+
+nav ul li ul li{
+    position: relative;
+    display: none;
+    width: 260px;
+    left: 169px;
+}
+
+nav ul li ul li ul li{
+
+    
+    width: 200px;
+    border: 1px solid #C8B281;
+    left: 100%;
+    top: -40px;
+    visibility: hidden;
+    
+}
+
+nav ul li ul li a{
+    text-align:center;
+    margin-top: -42px;
+    
+}
+
+nav ul li ul li ul li a{
+    
+    padding-left: 10px ;
+    text-align:center;
+    
+}
+
+
+
+
+nav ul li:hover ul li {
+    float: left;
+    display: block;
+    animation: submenu 500ms forwards;
+}
+
+ @keyframes submenu{
+    0%{
+        opacity: 0;
+        top:5px;
+    }
+    100%{
+        opacity: 1;
+        top:0px;
+    }
+}
+
+
+
+nav ul li ul li:hover ul li{
+    
+    display: block;
+    visibility: visible;
+    animation: navmenu 500ms forwards;
+}
+
+ @keyframes navmenu{
+    0%{
+        opacity: 0;
+        top:5px;
+    }
+    100%{
+        opacity: 1;
+        top:0px;
+    }
+}
+
+
+
+
+---.menu{
+    width: 100px;
+    position: relative;
+    left : -2400px;
+    transition: all .6s ease-in-out;
+    -webkit-transition: all .6s ease-in-out;
+    -moz-transition: all .6s ease-in-out;
+    -ms-transition: all .6s ease-in-out;
+    -o-transition: all .6s ease-in-out;
+    
+
+    
+}
+
+---.menu-icon{
+    padding: 10px 20px;
+    background: #f8d17f;
+    color: #372e29;
+    cursor: pointer;
+    float: right;
+    margin: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    
+
+}
+
+---#menuToggle{
+    display: none;
+}
+
+---#menuToggle:checked ~ .menu {position: absolute; left: 2px;}
+*/
+
+     </style>
+</head>
+  
+<body>
+
+<!--<input type="checkbox" id="menuToggle">
+<label for="menuToggle" class="menu-icon">&#9776;</label> -->
+
+<header>
+    <div id="brand" position="fixed">PERSONAL BLOG</div>
+    <a id="brand" class="new" href="blog.html"></a>
+</header>
+
+
+<!--<nav class="menu">
+    <ul>
+        <li><a href="">General</a>
+            <ul>
+                <li><a href="">Linux</a></li>
+                <li><a href="">Elastic Search</a></li>
+            </ul>
+        </li>
+        <li><a href="">DevOps</a>
+            <ul>
+                <li><a href="CICDJenkinsAWS.html">CI/CD with Jenkins in AWS</a></li>
+                <li><a href="">Configuration Management</a></li>    
+            </ul>
+        </li>
+        <li><a href="datascience.html">Data Science</a></li>
+        <li><a href="">Tools</a>
+            <ul>
+                <li><a href="">Ansible</a></li>
+                <li><a href="">Vagrant</a></li>
+                <li><a href="">Docker</a></li>
+                <li><a href="">Git</a></li>
+            </ul>
+        </li>   
+        <li><a href="">Other</a></li>
+    </ul>
+</nav> -->
+
+    <div id="page-wrap">
+        
+        <div id="contact-info" class="vcard" >
+        
+            <!-- Microformats! -->
+        
+            <h1 class="fn">Continuous Integration/Delivery in AWS<p>using Github, Jenkins</br> with EC2, CodePipeline & CodeDeploy </p></h1>
+        
+          
+        </div>
+                
+        <div id="objective" >
+            <p>
+                <a id="launch">As one of most important steps in DevOps works, continuous integration/delivery is required to automate for build and deployment process. This part of cycle is usually implemented in cloud platform like Amazon Web Service(AWS). In following article, it'll be showed how to operate all process in AWS using Github and Jenkins tools. 
+                <ul style="margin-bottom:20px ; list-style-type:square">
+                    <li><b><big></a>Launch an EC2 instance</big></b> make it ready via SSH to install Jenkins
+                    <div id=newline>Firstly we will need an EC2 instance to use as Jenkins virtual server for Build. After logging your AWS account, in AWS Management Console page; from Services click EC2 in Compute header. It will lead you to EC2 dashboard to manage all options related instances.</div>
+                    
+                    <br>In EC2 Dashboard, click Launch Instance and choose;
+                    <ul style= "list-style-type:disc">
+                        <li style="margin-top: 5px">Step 1: Amazon Linux AMI 2018.03.0 (HVM), SSD Volume Type (free tier eligible)</li> 
+                        <li>Step 2: t2.micro (free tier eligible / as default)</li>
+                        <li>Step 3: IAM role should be assigned to Jenkins instance for interacting with CodePipeline as creating new IAM role. For our instance, other options can be left as default. Choose role you will create by following steps.
+                            <ul style="list-style-type:circle">
+                                <li>Create new IAM role - It will lead you Identity and Access Management(IAM) for roles.</li>
+                                <li>Create role > AWS service > EC2 > Next: Permissions > AWSCodePipelineFullAccess > Next: Review > Role name = JenkinsCodePipelineRole. Then click Create role.</li>
+                            </ul>
+                        </li>
+                        <li>Step 4: Skip this step, no need to edit storage setting for our instance </li>
+                        <li>Step 5: Click Add Tag > define your tags as Key = Name and Value = JenkinsServer</li>
+                        <li>Step 6: Security Group configuration is significant to allow traffic such as port , IP address etc. to instance to be launched. To connect your instance via SSH, port 22 is required and it's already default setting as rule. To launch JenkinsServer as webserver we will identify new rule in addition to ssh rule by following.</li>
+                        <div id=newline>Assign a security group | Create a new security group > Security group name = ServerSecurity > Click Add Rule > Type : All Traffic > Source : Anywhere > Review and Launch</div>
+                        <li>Step 7: Review instance configuration details > Launch </li>
+                        <p>Once click Launch, Key pair page will pop up. Key pair is required to log into your instance securely from your local, in our case - allow to make SSH connection to JenkinsServer via client.
+                        <ul style="list-style-type:circle">
+                            <li>Create a new key pair > Key pair name = sshtoserver > Download Key Pair > Launch Instances > View Instances</li>
+                       </ul>
+                    </ul>
+            <p>EC2 instance is created to use as Jenkins server, after making ssh connection to instance, Jenkins installation will be done. MobaXterm will be used as ssh client so steps will be executed on that way. </p>
+            In MobaXterm Home page, click New session;
+                    <ul style= "list-style-type:disc">
+                        <li style="margin-top: 5px">Basic SSH settings <big>|</big> Remote host = IPv4 Public IP, Specify username=ec2-user, Port=22<br>Remote Host is your own IPv4 Public IP number you can provide from Instances section by IPv4 Public IP column. Specify username is ec2-user for Linux AMI that we chose while creating EC2 intance.</li> 
+                        <li>Advanced SSH settings <big>|</big> Tick Use private key > Select your sshtoserver.pem file from where you downloaded it</li>
+                        <li>Network settings <big>|</big> If you are operating these steps from your corporate or other private network, you'll need to use proxy to log in your instance successfully.</li>
+                    </ul>
+            <p>After clicking OK, you will launch your EC2 instance via SSH to install Jenkins with cli prompt. </p>
+            In your EC2 instance cli prompt, to install Jenkins run the following commands respectively;
+                    <pre id=code><font color="gray">$</font> sudo yum update -y </pre>
+                    <pre id=code><font color="gray">$</font> sudo yum install java-1.8.0 -y</pre>
+                    <pre id=code><font color="gray">$</font> sudo yum remove java-1.7.0-openjdk -y </pre> 
+                    <pre id=code><font color="gray">$</font> sudo wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat/jenkins.repo </pre>
+                    <pre id=code><font color="gray">$</font> sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key </pre>
+                    <pre id=code><font color="gray">$</font> sudo yum install jenkins -y </pre>
+                    <pre id=code><font color="gray">$</font> sudo service jenkins start</pre>
+                    <br><font face color="#A46C48"><strong>Note:</strong> EC2 Linux AMI instance is installed with Java 1.7 as default. Jenkins requires Java 1.8 that's why we install java-1.8.0 and remove old version 1.7.0. You can confirm version with 'java -version' command to check it's in required version. After installing new java version; to run it, old version should definitely be removed as we've done </font>
+            <p>Now you installed Jenkins on your EC2 instance and ready to login via its web interface.</p>
+                    <ul style= "list-style-type:disc;">
+                        <li>To launch dashboard of Jenkins, in web browser enter your IPv4 Public IP with port 8080 as <br>http://IPv4_Public_IP:8080 </li>
+                        <li>To unlock Jenkins, you need to paste the password value that would be obtained in /var/lib/jenkins/secrets/initialAdminPassword > Continue, use command below to get password<br><font face ="Consolas, Courier, mono">$ sudo cat /var/lib/jenkins/secrets/initialAdminPassword </li></font>
+                        <li>Customize Jenkins | Install suggested plugins > Create First Admin User  > Save and Finish > Instance Configuration (Jenkins URL) > Save and Finish > Start Using Jenkins </li>    
+                        <div id=note><strong>Note:</strong> Normally you launch the jenkins dashboard after the latest step however if you meet setup wizard white-blank page; please from command line run commands below respectively to restart jenkins. </div>
+                        <pre id=code><font color="gray">$</font> sudo service jenkins stop</pre>
+                        <pre id=code><font color="gray">$</font> sudo service jenkins start</pre> 
+                    </ul>
+                    <li><b><big>Configure Jenkins</big></b>  to build code before deployment</li>
+            <p>Jenkins is installed and ready to use, in this phase while plugins over Jenkins are installed and configurations in its interface will be done for build.</p>
+            In Jenkins Home Page, 
+                    <ul style= "list-style-type:disc;">
+                        <li style="margin-top: 5px">Click Manage Jenkins on the left header, then Manage Plugins</li>
+                        <li>In Availabe tab, type AWS CodePipeline and search & choose > Download now and install after restart , be sure that select Restart Jenkins when installation is complete and no jobs are running.</li>
+                        <li>After completing plugin installation; to start your build, click New Item on the left header </li>
+                        <li>Enter an item name = JenkinsBuild > Freestyle project > OK</li> 
+                        <li>General <big>|</big> Execute concurrent builds if necessary  <br>Source Code Management <big>|</big> AWS CodePipeline <br>> AWS Region is Availability Zone in EC2 Instances page also including in Public DNS; select AWS Region according to your own instance, <br>> AWS Access Key & AWS Secret Key are created in Identity and Access Management (IAM), create them by following,
+                        <ul style="list-style-type:circle">
+                            <br>In AWS Management Console,
+                            <li style="margin-top: 5px">Service > IAM in Security, Identity & Compliance </li>
+                            <li>Dashboard > Delete your root access keys > Manage Security Credentials > Continue to Security Credentials</li>
+                            <li>Access keys (access key ID and secret access key) > Create New Access Key > Download Key File</li>
+                            Note: If you don't download your Key file, it won't be possible to check password again. So don't skip downloading.  
+                        </ul> 
+                       <br>Then fill values of AWS Access Key & AWS Secret Key obtained by downloading <br>> Category : Build, <br> > Provider = JenkinsBuildCodePipeline <br>Build Triggers <big>|</big> Poll SCM > Schedule = * * * * *  <br>Build Environment <big>|</big> no need to click any of them, skip <br>Build <big>|</big> Add Build Step > Execute Shell <br>> In Command section, type following commands respectively as shown below, 
+                       <pre id=block><code>gem install bundle 
+bundle install 
+rake</code></pre>
+                       <div id=note><strong>Note:</strong> Code is Ruby based and ruby is installed as default in our EC2 Linux AMI instance so we don't need to install it again. First two commands above to make ready for environment/workspace; to download Gems in Gemfile 'bundle install' command should be run and to run that related command it should be enable as downloading with 'gem install bundle' command. This is why the first two commands are used and last command 'rake' is used to run script in Rakefile to create index.html we will launch on deployment.</div>
+                        <br>Post-build Actions <big>|</big> Add post-build action > AWS CodePipeline Publisher > Output Locations | Add (click Add), leave Location and Artifact Name as blank <br>Save</li>   
+                    </ul>
+            <p>To run 'rake' command properly, its path should be identified to environment variables in Jenkins. </p>
+                    <ul style= "list-style-type:disc">
+                        <li>Click Manage Jenkins on the left header, then Configure System</li>
+                        <li>Global properties | tick Environment variables > Add</li>
+                        <li>List of variables | Name = Path > Value = $PATH:$RAKE_HOME > Add > Name = RAKE_HOME > <br>Value = /var/lib/jenkins/bin > Apply > Save </li>
+                    </ul>
+            <p>Thus we have done jenkins configuration for build, next step in cycle is deployment which CodeDeploy will be managed. </p>
+                    
+                    <li><big><b>Create application & deployment in CodeDeploy</b></big> to deploy your application </li>
+            <p>For CodeDeploy, another EC2 instance will be needed to install in and also two different IAM roles should be created and assigned to this new EC2 instance to use CodeDeploy in it and CodeDeploy to allow CodeDeploy to call AWS services on you behalf. To create IAM roles initially; </p> 
+                    <ul style="list-style-type:disc">
+                            <b>EC2 instance service role</b>;
+                            <br>AWS Management Console > Services > IAM in Security, Identitiy & Compliance > Roles
+                            <li style="margin-top: 5px">Create Role > EC2 > Next: Permissions</li>
+                            <li>Search AmazonEC2RoleforAWSCodeDeploy and tick > Next: Review</li>
+                            <li>Role name = JenkinsEC2CodeDeployRole > Create role</li>
+                            
+                            <br><b>CodeDeploy service role</b>;
+                            <li style="margin-top: 5px">Create Role > CodeDeploy > Select your use case | CodeDeploy > Next: Permissions</li>
+                            <li>Search AWSCodeDeployRole and tick (it can be assigned automatically) > Next: Review</li>
+                            <li>Role name = JenkinsCodeDeployRole > Create role</li>
+                    </ul> 
+            <p>Roles are ready, we can launch a new EC2 instance to install CodeDeploy in it.</p>  
+                    <ul style= "list-style-type:disc">
+                        <li>To create & launch EC2 instance please follow <a href="#launch">Launch an EC2 instance</a> steps also considering next statements; </li>
+                        <ul style="list-style-type:circle">
+                            <li>Step 3: as IAM role, select JenkinsEC2CodeDeployRole</li>
+                            <li>Step 5: define your tags as Key = Name and Value = CodeDeployServer</li>
+                            <li>Step 6: Select an existing security group > select ServerSecurity (same security group) used for also JenkinsServer.</li>
+                            <li>After Step 7, while launching CodeDeployServer, we can use same key pair created before > Choose an existing key pair > Select a key pair : sshtoserver > tick I acknowledge that statement > Launch Instances </li>
+                            <li>To launch instance via MobaXterm ssh client, follow same steps indicated before </li>
+                        </ul> 
+                    </ul>
+            <p>After clicking OK, you will launch your EC2 instance via SSH.</p>  
+            In your EC2 instance cli prompt, to install CodeDeploy run the following commands respectively;
+                    <pre id=code><font color="gray">$</font> sudo yum update -y</pre>
+                    <pre id=code><font color="gray">$</font> wget https://bucket-name.s3.amazonaws.com/latest/install</pre>
+                    <pre id=code><font color="gray">$</font> chmod +x ./install</pre>
+                    <pre id=code><font color="gray">$</font> sudo ./install auto</pre>
+                    <pre id=code><font color="gray">$</font> sudo service codedeploy-agent status</pre>
+                    <br><font face color="#A46C48"><strong>Note:</strong> bucket-name is containing AWS CodeDeploy Resource Kit files for your region.For example, for the US East (Ohio) Region, replace bucket-name with aws-codedeploy-us-east-2. Latest command is to check CodeDeploy is up or not. If you see error message like: No AWS CodeDeploy agent running, please run <font face ="Consolas, Courier, mono">$sudo service codedeploy-agent start</font> command to active it. Also differently from installation document of AWS CodeDeploy in official website, we skip ruby and wget installion since they are installed as default in EC2 instance we have. On the other hand, ec2-user is our default location and user while launching to instance so we didn't need to change directory as shown in offical installion document before wget command. </font>
+            <p>CodeDeploy installation is completed on EC2 instance and next step is to create application and deployment tasks in CodeDeploy interface.</p>  
+                    AWS Management Console > Services > CodeDeploy in Developer Tools > Create application
+                    <ul style= "list-style-type:disc">
+                        <li  style="margin-top: 5px">Application configuration <big>|</big> Application name = JenkinsCodeDeployApp > Compute platform : EC2/On-premises > Create application</li>
+                        <li>Create deployment group > 
+                        <br>Deployment group name <big>|</big> Enter a deployment group name = JenkinsCodeDeployment 
+                        <br>Service Role <big>|</big> Choose a service role : JenkinsCodeDeploy (CodeDeploy service role)
+                        <br>Deployment Type <big>|</big> Choose how to deploy your application : In-place 
+                        <br>Environment configuration <big>|</big> tick Amazon EC2 instances > Value-optional : CodeDeployServer (CodeDeploy-installed EC2)
+                        <br>Deployment settings <big>|</big> Deployment configuration : CodeDeployDefault.AllAtOnce 
+                        <br>Load balancer <big>|</big> untick Enable load balancing
+                        <br>Create deployment group </li>
+                    </ul>
+             <p>So far we implemented required steps for build and deployment to create a working pipeline. Eventually CodePipeline will help to complete cycle. </p>
+                    <li><b><big>Use CodePipeline</big></b> to create pipeline for automation with purpose of CI/CD</li>
+                    <div id=newline>In our case, we'll use sample code located in Github repository originated by AWS. Before start, logging your Github account, that sample code should be forked (click Fork on upper right) by following link <a href="https://github.com/GurayCetin/aws-codepipeline-jenkins-aws-codedeploy_linux" target="_blank">aws-codepipeline-jenkins-aws-codedeploy_linux.zip</a> </div>
+                    <br><font face color="#A46C48"><strong>Note:</strong> Link is directing to my repository I forked from AWS sample code. To be sure it's working on my side so yours, I've added a script (beforeInstall.bash) to solve overwrite issue. Also I want to emphasize that sample code is Linux based as well as EC2 instances operating system.</font>
+                    <ul style="list-style-type:disc;">
+                            <br>AWS Management Console > Services > CodePipeline in Developer Tools > Create Pipeline
+                            <li style="margin-top: 5px">Step 1: Choose pipeline settings <big>|</big> Pipeline name = JenkinsCodePipeline > Service Role : New Service role > Role name : AWSCodePipelineServiceRole-(region-name)-JenkinsCodePipeline (it'll be assigned automatically, don't change name manually) > Artifact store : Default location > Next</li>
+                            <li>Step 2: Source <big>|</big> Source provider : Github > Connect to Github > Repository: entry your own forked repository full name > Branch: Master > Change detection options : Github webhooks (recommended) > Next</li>
+                            <li>Step 3: Build <big>|</big> Build provider : Add Jenkins > Provider name = JenkinsBuildCodePipeline > Server URL = http://IPv4_Public_IP:8080 > Project name = JenkinsBuild > Next </li>
+                            <li>Step 4: Deploy <big>|</big> Deployment provider : AWS CodeDeploy > Application name : JenkinsCodeDeployApp > Deployment group : JenkinsCodeDeployment > Next </li>
+                            <!--<li>Step : Service Role <big>|</big> Create role > IAM Role : AWS-CodePipeline-Service (as default) > Policy Name : Create a new Role Policy (as default) > Allow </li>-->
+                            <li>Step 5: Review <big>|</big> Create pipeline</li>
+                    </ul> 
+             <p>After main steps of pipeline, input & output artifacts will be entitled to make source, build and deploy stages successive. </p>
+                    <ul style="list-style-type:disc">
+                            While inside JenkinsCodePipeline; before pipeline starts, click Edit on upper right,
+                            <li  style="margin-top: 5px">Edit: Source <big>|</big> Edit stage > <img class="editicon" src="icons/edit-icon2.png" align="center"> > Output artifacts = MyBuild > Save</li>
+                            <li>Edit: Build <big>|</big> Edit stage > <img class="editicon" src="icons/edit-icon2.png" align="center"> > Input artifacts : MyBuild > Output artifacts = MyDeploy > Save </li>
+                            <li>Edit: Deploy <big>|</big> Edit stage > <img class="editicon" src="icons/edit-icon2.png" align="center"> > Input artifacts : MyDeploy > Save</li>
+                            <li>Editing: JenkinsCodePipeline <big>|</big> Save > Save </li>
+                            <!--<li>Step : Service Role <big>|</big> Create role > IAM Role : AWS-CodePipeline-Service (as default) > Policy Name : Create a new Role Policy (as default) > Allow </li>-->
+                            <li>Release change > Release </li>
+                    </ul> 
+                    <p class="addition">In conclusion,</big> pipeline will start soon according to our last arrangements and stages with all steps we carried out in order. Pipeline visual will show actions with colour highlight for three stages. As process going on smoothly, each stage will turn green colour after completed. With accomplished Deploy stage, application creating index.html webpage is released via IPv4 Public IP of CodeDeployServer instance. As expressed, type IP address in web browser to launch webpage showing greeting text with green background and see result :) <br>Thanks!</p> 
+                    <a class="icon" href="blog.html">
+                    <img src="images/back1.png" width="35" height="35">
+                    </a>
+                    <a class="icon" href="index.html" >
+                    <img src="images/house.png" width="35" height="35">
+                    </a>
+                </ul>
+        </div>
+        
+    </div>
+
+<script src="href.js"> </script>
+
+</body>
+
+</html>
