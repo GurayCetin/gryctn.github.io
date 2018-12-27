@@ -1,1 +1,0 @@
-# gryctn.github.io
