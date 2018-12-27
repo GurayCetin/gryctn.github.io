@@ -1,0 +1,1011 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <!-- font-family: Retina,"Helvetica Neue",Helvetica,Arial,sans-serif; -->
+
+ 
+<head>  
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+     <title>LAMP server with Ansible in OpenStack</title>
+
+     <style type="text/css">
+
+     @import url('https://fonts.googleapis.com/css?family=Vollkorn');
+
+        * { margin: 0; padding: 0; }
+        body { font: 16px Helvetica, Sans-Serif; line-height: 24px; }
+        .clear { clear: both; }
+        #page-wrap { width: 800px; margin: 80px auto 80px;  }
+        h1 { margin: 0 0 16px 0; padding: 0 0 16px 0; font-size: 42px; font-weight: bold; letter-spacing:-2px;line-height: 1;text-align: right; }
+        h1 p {font-size: 40px; font-weight: normal; line-height: 1;  }
+        h2 { color:#372e29; font-size: 20px; margin: 0 0 6px 0; position: relative; }
+        h2 span {display:block;  bottom: 0; right: 0; font-style: italic; font-family: Georgia, Serif; font-size: 16px; color: #B27300; font-weight: bold; }
+        p { margin: 10px 0 10px 0; }
+        a { color: #999; text-decoration: none; border-bottom: 1px dotted #999; }
+        #brand a{text-decoration: none; border-bottom: none;}
+        a.icon{ border-bottom: none }
+        a.icon:hover{ border-bottom-style:none; }
+        a:hover { border-bottom-style: solid; color: black; }
+        #launch {font-family: Georgia, Serif; font-style: italic; color: #726255; margin-top: 10px; text-align: justify; border-bottom: none; }
+        ul { margin: 15px 0 15px 2px; }
+        h2.other { margin: 16px; position:all}
+        #objective { width: 800px;  margin-bottom: 100px; padding-right: 20px; border-right: 3px solid lightgrey;}
+        #objective p { font-family: Georgia, Serif; font-style: italic; color: #726255; margin-top: 10px; text-align: justify;}
+        #objective p.addition {font-family: Helvetica, Sans-Serif; font-style: normal; margin-bottom: 35px ; color: black;}
+        dt { font-style: italic; font-weight: bold; font-size: 18px; text-align: right; padding: 0 32px 0 0; width: 100px; float: left; height: 100px; border-right: 2px solid #f0c75e; color:#4C3100; }
+        #objective ul ul ul {margin: 3px 15px;}
+        #objective ul ul p {font: 16px Helvetica , Sans-Serif; color: #000000; line-height: 24px; margin: 3px 0px; }
+        #objective ul ul li {margin-top:20px; }
+        #objective ul li {margin-top: 30px;}
+        .editicon{width:21px; height:22px;}
+
+        dd { width: 640px; float: right; }
+        dd.clear { float: none; margin: 0; height: 15px; }
+
+        #block{
+            padding: 6px;
+            border-style: solid ;
+            border-color: lightgrey;
+            border-width: 2px;
+            color: #404040;
+        }
+        
+        #block-optional{
+            color: #A0A0A0;
+            padding: 6px;
+            border-style: solid ;
+            border-color: lightgrey;
+            border-width: 2px;
+        }
+
+        #code {
+            border-left: 3px solid #696969;
+            padding-left: 5px;
+            margin-top: 3px;
+        }
+
+        #code-optional {
+            color: #A0A0A0;
+            border-left: 3px solid darkgrey;
+            padding-left: 5px;
+            margin-top: 3px;
+        }
+
+
+        #note {
+            color: #A46C48;
+            margin-top: 15px;
+        }
+
+        #newline {
+            margin-top:7px;
+        }
+
+        .value {
+            color: #808000;
+        }
+
+        .ip {
+            color: #990073;
+        }
+
+        .name2 {
+            color: #FF8C00;
+        }
+
+        .end {
+            color: #CC0066;
+        }
+
+
+
+header{ 
+    width: 100%; 
+    height:50px; 
+    margin:auto; 
+    border-bottom: 1px solid #9b9694;
+}
+
+
+#brand{
+    float: left ;
+    line-height: 50px;
+    font-family: Rockwell;
+    font-weight: bold;
+    font-size:25px;
+    margin-left: 15px;
+    margin-top: 6px;
+    cursor: pointer;
+    width: 222px;
+    height: 50px;
+
+}
+
+
+#brand.new{
+    border-bottom: none;
+    text-decoration:none;
+    margin-left: -222px;
+    color: initial;
+}
+
+
+kbd {
+    background-color: #eee;
+    border-radius: 3px;
+    border: 1px solid #b4b4b4;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .2), 0 2px 0 0 rgba(255, 255, 255, .7) inset;
+    color: #333;
+    display: inline-block;
+    font-size: .85em;
+    font-weight: 700;
+    line-height: 1;
+    padding: 2px 4px;
+    white-space: nowrap;
+   }
+
+
+
+
+/*nav{
+    
+    width: 250px;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-left: 2px;
+    font-family: Helvetica, Sans-Serif; 
+    font-weight: bold ;
+    
+    
+}
+
+nav a{
+    display: block;
+    text-decoration: none;
+    background: #f8d17f;
+    font-size: 13pt;
+    border-left: : 1px solid #C8B281;
+    border-right: 1px solid #C8B281;
+    border-bottom: 1px solid #C8B281;
+    border-top: 1px solid #C8B281;
+    color:#372e29;
+}
+
+
+nav a:hover{
+    background: #F1A400;
+    color: #4C3100;
+    font-size: 18px;
+}
+
+
+nav ul{
+    list-style: none;
+
+
+}
+
+nav ul li{
+    position: relative;
+    float:left;
+    width: 170px;
+    height: 40px;
+    line-height: 40px;
+     
+}
+
+
+
+nav ul li ul li{
+    position: relative;
+    display: none;
+    width: 260px;
+    left: 169px;
+}
+
+nav ul li ul li ul li{
+
+    
+    width: 200px;
+    border: 1px solid #C8B281;
+    left: 100%;
+    top: -40px;
+    visibility: hidden;
+    
+}
+
+nav ul li ul li a{
+    text-align:center;
+    margin-top: -42px;
+    
+}
+
+nav ul li ul li ul li a{
+    
+    padding-left: 10px ;
+    text-align:center;
+    
+}
+
+
+
+
+nav ul li:hover ul li {
+    float: left;
+    display: block;
+    animation: submenu 500ms forwards;
+}
+
+ @keyframes submenu{
+    0%{
+        opacity: 0;
+        top:5px;
+    }
+    100%{
+        opacity: 1;
+        top:0px;
+    }
+}
+
+
+
+nav ul li ul li:hover ul li{
+    
+    display: block;
+    visibility: visible;
+    animation: navmenu 500ms forwards;
+}
+
+ @keyframes navmenu{
+    0%{
+        opacity: 0;
+        top:5px;
+    }
+    100%{
+        opacity: 1;
+        top:0px;
+    }
+}
+
+
+
+
+---.menu{
+    width: 100px;
+    position: relative;
+    left : -2400px;
+    transition: all .6s ease-in-out;
+    -webkit-transition: all .6s ease-in-out;
+    -moz-transition: all .6s ease-in-out;
+    -ms-transition: all .6s ease-in-out;
+    -o-transition: all .6s ease-in-out;
+    
+
+    
+}
+
+---.menu-icon{
+    padding: 10px 20px;
+    background: #f8d17f;
+    color: #372e29;
+    cursor: pointer;
+    float: right;
+    margin: 5px;
+    border-radius: 5px;
+    margin-right: 10px;
+    
+
+}
+
+---#menuToggle{
+    display: none;
+}
+
+---#menuToggle:checked ~ .menu {position: absolute; left: 2px;}
+*/
+
+     </style>
+</head>
+  
+<body>
+
+<!--<input type="checkbox" id="menuToggle">
+<label for="menuToggle" class="menu-icon">&#9776;</label> -->
+
+<header>
+    <div id="brand" position="fixed">PERSONAL BLOG</div>
+    <a id="brand" class="new" href="blog.html"></a>
+</header>
+
+
+<!--<nav class="menu">
+    <ul>
+        <li><a href="">General</a>
+            <ul>
+                <li><a href="">Linux</a></li>
+                <li><a href="">Elastic Search</a></li>
+            </ul>
+        </li>
+        <li><a href="">DevOps</a>
+            <ul>
+                <li><a href="CICDJenkinsAWS.html">CI/CD with Jenkins in AWS</a></li>
+                <li><a href="">Configuration Management</a></li>    
+            </ul>
+        </li>
+        <li><a href="datascience.html">Data Science</a></li>
+        <li><a href="">Tools</a>
+            <ul>
+                <li><a href="">Ansible</a></li>
+                <li><a href="">Vagrant</a></li>
+                <li><a href="">Docker</a></li>
+                <li><a href="">Git</a></li>
+            </ul>
+        </li>   
+        <li><a href="">Other</a></li>
+    </ul>
+</nav> -->
+
+    <div id="page-wrap">
+        
+        <div id="contact-info" class="vcard" >
+        
+            <!-- Microformats! -->
+        
+            <h1 class="fn">Creating LAMP server on Centos<p>with Vagrant using Ansible </p></h1>
+        
+          
+        </div>
+                
+        <div id="objective" >
+            <p>
+                Vagrant and Ansible are both of favourite tools in DevOps culture. Vagrant is to automate infrastructure provisioning your as working with virtualization platform VirtualBox. Ansible is configuration management tool that in our case lamp stack server will be installed with its help on different VMs that created on Vagrant. LAMP stands for Linux, Apache, MySQL, PHP. 
+                
+                <ul style= "list-style-type:square">
+                    <li><b><big></a>Setting up Centos VMs over Vagrant </big></b></li>
+                    
+                    <div id=newline>LAMP will be hosted on Centos operating system to be deployed by Vagrant working with VirtualBox to create virtual machine. As prerequisites after downloading <a href="https://www.vagrantup.com/downloads.html" target="_blank">Vagrant</a> and <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">VirtualBox</a> according to your main operating system, to confirm installation <font face ="Consolas">vagrant --version</font> command can be run in command line as I use terminal by Mac OSX. If command returns a version number like <code>Vagrant 2.2.0</code> which version is installed, means that it's completed.</div>
+                   
+                    <div id=newline>Vagrant maintains virtual environment via Vagrantfile enabling automation to configure, which means Vagrantfile is to specify how to provision these machines. Initially it should be created and edited before launching new virtual machines. </div>
+                    
+                    <div id=newline>In total, three VMs will be created via one Vagrantfile with Vagrant; first one will be agent server that Ansible is installed on it and other VMs - apache and mysql servers will be configured via each playbooks with Ansible over this agent server.</div>
+
+                    <ul style= "list-style-type:disc">
+                        
+                        <li style= "margin-top:10px">To start with creating project folder, in terminal;     
+                        <pre id=code><code><font color="gray">$</font> mkdir lamp</code></pre>  
+                        <pre id=code><code><font color="gray">$</font> cd lamp</code></pre>
+                        
+                        <li>While in lamp project folder, to initiate a Vagrantfile,</li>         
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant init </code></pre>
+                        
+                        <li><i><font color="#666666">Optional: Set proxy settings from terminal and install vagrant plugin for proxy,</font></i></li>    
+                        <font color="#666666"><pre id=code-optional><code>$ export http_proxy=PROXY_ADDRESS:PROXY_PORT </code></pre>
+                        <pre id=code-optional><code>$ export https_proxy=PROXY_ADDRESS:PROXY_PORT </code></pre>    
+                        <pre id=code-optional><code>$ vagrant plugin install vagrant-proxyconf</code></pre>
+                        Note: This proxy settings is active as long as the terminal session is open. When you restart your terminal session, these proxy settings for http & https should be implemented again. </font>
+
+                        
+                        <br>Then Vagrantfile created in lamp directory should be opened in text editor that I use SublimeText to configure.
+                        
+                        <li style= "margin-top:1px">File > Open File > Select lamp folder > Vagrantfile</li>
+                       
+                        <div id=note style="margin-top:3px"><strong>Note:</strong> After editing, please do not forget to save file.</div>
+
+                  
+                        <li>For Centos 7 operating system it should be updated accordingly instead of "base".</li>
+                        <pre id=block><code>config.vm.box <span class="end">=</span> <span class="value">"bento/centos-7.3"</span></code></pre>
+                                
+                        <li>To identify hostname and network values of three VMs to be created, add these lines after latest row 'SHELL' in Vagrantfile accordingly. Eventually each VM / agent - web - db will have assigned private IP addresses with own hostnames.</li>
+                        <pre id=block><code>config.vm.define <span class="value">"agent"</span> <span class="end">do</span> <span class="name2">|<i>agent</i>|</span>
+ agent.vm.hostname <span class="end">=</span> <span class="value">"agent"</span>
+ agent.vm.network <span class="value">"private_network",</span> <span class="ip">ip:</span> <span class="value">"192.168.33.10"</span>
+<span class="end">end</span>
+config.vm.define <span class="value">"web"</span> <span class="end">do</span> <span class="name2">|<i>web</i>|</span>
+ web.vm.hostname <span class="end">=</span> <span class="value">"apache"</span>
+ web.vm.network <span class="value">"private_network",</span> <span class="ip">ip:</span> <span class="value">"192.168.33.20"</span>
+ web.vm.network <span class="value">"forwarded_port"</span>, <span class="ip">guest: 80</span>, <span class="ip">host: 8080</span>
+<span class="end">end</span>
+config.vm.define <span class="value">"db"</span> <span class="end">do</span> <span class="name2">|<i>db</i>|</span>
+ db.vm.hostname <span class="end">=</span> <span class="value">"mysql"</span>
+ db.vm.network <span class="value">"private_network"</span> , <span class="ip">ip:</span> <span class="value">"192.168.33.30"</span>
+<span class="end">end</span></s></code></pre>     
+
+                        <li><i><font color="#666666">Optional: Set proxy settings in Vagrantfile.</font></i> <font color="#666666"><pre id=block-optional><code >if Vagrant.has_plugin?("vagrant-proxyconf")
+    config.proxy.http     = "http://PROXY_ADDRESS:PROXY_PORT/"
+    config.proxy.https    = "https://PROXY_ADDRESS:PROXY_PORT/"
+    config.proxy.no_proxy = "localhost,127.0.0.1,.example.com"
+end</code></pre> </font></li>
+                    
+                        <div id=note><strong>Note:</strong> In Vagrantfile, you'll notice it has configuration keys that can be uncommented erasing #'s and their explanations. When you change configuration in Vagrantfile, you need to activate related commands by erasing '#'s where at the beginning of those lines. <code>config.vm.box</code> is uncommented as default and you can assign in here which operating system you will use as we prefer bento/centos-7.3 corresponding to Centos 7.3. For proxy settings new lines should be added to Vagrantfile not containing as default also as shown above with your own values for proxy ip address and port. </div>
+
+                        <li>To bring machines up,</li>
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant up </code></pre>
+
+                        <li>After waiting for installation, to ssh to agent VM, </li>
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant ssh agent</code></pre>
+
+                     </ul>        
+
+            <p>Now we are on agent VM and ready to install Ansible.</p>                  
+                    
+                    <ul style= "list-style-type:disc">
+
+                        <li style="margin-top: 10px;">To update the latest current version of package,</li>
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> sudo yum -y update</code></pre>
+
+                        <li>To confirm CentOS 7 EPEL repository is installed,</li>
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> sudo yum -y install epel-release</code></pre>
+
+                        <li>To install Ansible,</li>
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> sudo yum -y install ansible</code></pre>
+
+                        <li>To check Ansible is installed,</li>
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ansible --version</code></pre>
+
+                    </ul>  
+
+            <p>After checking Ansible version number, installation is confirmed. To work with multiple hosts like web and db over agent, Hosts file & inventory file should be modified with hostnames & IP Addresses to let the agent server know which machines will be configured by Ansible. </p> 
+
+                    <ul style= "list-style-type:disc"> 
+
+                        <li>To edit hosts file via vi editor,</li>
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> sudo vi /etc/hosts</code></pre>
+                            <ul style="list-style-type:circle">
+                                <li>Add two lines of IP addresses with hostnames below.</li>
+                                <pre id=block><code>192.168.33.20  apache
+192.168.33.30  mysql</code></pre>
+                                <li>Move your cursor to the latest line with arrow keys and Press <kbd>O</kbd> to insert value in a new line. Then Press <kbd>Enter</kbd> to insert other value in a new line.</li>
+                                <li>Press <kbd>Esc</kbd> to return the command mode.</li>
+                                <li>Press <kbd>Shift</kbd> + <kbd>:</kbd> (colon), type <b>wq!</b> and press <kbd>Enter</kbd> to save it.</li>
+                            </ul>       
+                        <li >To edit inventory file via vi editor, </li>
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> sudo vi /etc/ansible/hosts</code></pre>
+                            <ul style="list-style-type:circle">
+                                <li>Add lines below accordingly with same approach above.</li>
+                                <pre id=block><code>[webservers]
+apache
+[databases]
+mysql
+</code></pre>
+                            </ul>
+                    </ul>       
+            <p>Now we will make ssh connections to web and db servers over agent server to not ask for password. </p>
+
+                    <ul style= "list-style-type:disc">   
+
+                        <li>To generate public rsa key pair, press <kbd>Enter</kbd> until it's completed,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ssh-keygen</code></pre>
+
+                        <li>After viewing public key with command below, copy ( <kbd>Ctrl</kbd> + <kbd>C</kbd> ) all output of public key,</li>
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> cat .ssh/id_rsa.pub</code></pre>
+
+                        <li>To connect web (apache) server, (password:<b>vagrant</b>) </li> 
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ssh apache</code></pre>
+
+                        <li>After opening authorized_keys file via vi editor with command below, paste your public key as new line.  </li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> vi .ssh/authorized_keys</code></pre>
+
+                            <ul style="list-style-type:circle">
+                                <li>Press <kbd>O</kbd> to insert value in a new line.</li> 
+                                <li>Press mouse right click to paste your public key.</li> 
+                            </ul>
+                    </ul>
+
+            <p>In Mac OS X, click touchpad to select copy and paste functions.</p>   
+
+                    <ul style= "list-style-type:disc">  
+
+                        <li>To exit from web server and go back agent server, </li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> logout</code></pre>
+
+                        <li>To connect db (mysql) server, (password:<b>vagrant</b>) </li> 
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ssh mysql</code></pre>
+
+                        <li>After opening authorized_keys file via vi editor with command below, paste your same public key as new line. </li> 
+                        <pre id=code><code><font color="gray">[vagrant@mysql ~]$</font> vi .ssh/authorized_keys</code></pre>
+
+                        <li>To exit from db server and go back agent server, </li> 
+                        <pre id=code><code><font color="gray">[vagrant@mysql ~]$</font> logout</code></pre>
+
+                    </ul>
+
+            <p>ssh connections are done; from agent server as logging to servers with <code>ssh apache</code> and <code>ssh mysql</code> commands as above, it can be checked that it will not ask a password anymore. At the first time, it will ask for 'yes/no' in prompt, type yes. </p>  
+
+                    <ul style= "list-style-type:disc">
+                        <li>To ensure that ansible connects to both of servers, </li> 
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ansible all -a "cat etc/hosts"</code></pre>
+                    </ul>
+
+            <p>In output, command will give us host list (apache & mysql) that ansible can connect.</p> 
+
+                <ul style= "list-style-type:square"> 
+
+                    <li><big><b>Create Ansible playbooks</b></big> for application and database</li>
+
+                    <div id=newline>As configuration management tool, Ansible will have provided pre-configured environment via its playbooks specific to each of application and database servers. Playbook is expressed in YAML format that is human-readable and commonly used for configuration files. </div>
+                    <div id=newline>Playbooks can be written in Code & Text editor like Sublime Text 3 that I prefer. Before writing playbook, sublime text will be modified by following.</div>
+                    <div id=newline>Before writing playbook, sublime text will be modified by following.</div>
+                   
+                </ul> 
+
+                    <ul style= "list-style-type:disc">                  
+                        <li>File > Open Folder > Select lamp folder > click Select Folder </li>
+                    </ul>
+
+            <p style= "margin-top:-10px;">You can see lamp folder and its subfolders on the left header in Sublime Text. </p>
+                    
+                    <ul style= "list-style-type:disc">     
+                        <li>Right click on lamp folder > New File > File > Save As... > File name = application.yml > Save</li>
+                    </ul>
+                   
+            <p style= "margin-top:-10px;">application.yml file is located as sub-file of lamp folder and ready to write. </p> 
+                   
+                        <br><b>application.yml</b> 
+                        <br>web/application configuration management as installing Apache & PHP with required packages also EPEL and web-related package like Webtatic repository, downloading CodeIgniter and modifing its attributes. 
+                       
+                    <ul style="list-style-type:disc;">
+                        <li> Apache web server installation and EPEL & Webtatic repository adding
+                        <pre id=block>- <span class="end">hosts</span>: <span class="value">webservers</span>
+  <span class="end">become</span>: <span class="ip">yes</span>
+  <span class="end">tasks</span>:
+    - <span class="end">name</span>: <span class="value">Install the Apache web server</span>
+      <span class="end">yum</span>: <span class="value">name=httpd state=present</span>
+    - <span class="end">name</span>: <span class="value">Ensure that Apache is started and enabled on system boot</span>
+      <span class="end">service</span>: <span class="value">name=httpd state=started enabled=yes</span>
+    - <span class="end">name</span>: <span class="value">Add EPEL repository</span>
+      <span class="end">yum_repository</span>:
+        <span class="end">name</span>: <span class="value">epel </span>
+        <span class="end">description</span>: <span class="value">EPEL YUM repo </span>
+        <span class="end">baseurl</span>: <span class="value">https://download.fedoraproject.org/pub/epel/$releasever/$basearch/</span>
+    - <span class="end">name</span>: <span class="value">Add public key of EPEL </span>
+      <span class="end">rpm_key</span>:
+        <span class="end">state</span>: <span class="value">present</span>
+        <span class="end">key</span>: <span class="value">https://archive.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7</span>
+    - <span class="end">name</span>: <span class="value">Add Webtatic repository</span>
+      <span class="end">yum</span>:
+        <span class="end">name</span>: <span class="value">https://mirror.webtatic.com/yum/el7/webtatic-release.rpm</span>
+        <span class="end">state</span>: <span class="value">present </span></pre></li>
+                    </ul>
+
+            <p style="font-size:14px"><b>hosts</b> - hostnames that specified in ansible inventory file will be configured
+                            <br><b>become: yes</b> - to run commands as sudo  
+                            <br><b>tasks</b> - to identify multitask for playbook 
+                            <br><b>name</b> - definitions of tasks
+                            <br><b>yum</b> - package manager that will be used, <b>name=httpd</b> - package that will be installed , <b>state=present</b> - latest version of package to install
+                            <br><b>service</b> - to identify start/stop/restart services, <b>state=started</b> - to ensure apache started , <b>enabled=yes</b> - to start apache on boot</p>
+                    
+                    <ul style= "list-style-type:disc">
+                        <li>Install PHP and related packages, CodeIgniter download and extract & change ownership 
+                        <pre id=block>
+    - <span class="end">name</span>: <span class="value">Install PHP 7 and some required packages</span>
+      <span class="end">yum</span>: <span class="value"></span>
+        <span class="end">name</span>:
+          - <span class="value">mod_php71w</span>
+          - <span class="value">php71w-cli</span>
+          - <span class="value">php71w-common</span>
+          - <span class="value">php71w-gd</span>
+          - <span class="value">php71w-mbstring</span>
+          - <span class="value">php71w-mcrypt</span>
+          - <span class="value">php71w-mysqlnd</span>
+          - <span class="value">php71w-xml</span>
+          - <span class="value">unzip</span>
+          - <span class="value">vim</span>
+          - <span class="value">mariadb</span>
+        <span class="end">state</span>: <span class="value">present</span>
+    - <span class="end">name</span>: <span class="value">Download and extract the CodeIgniter archive to /var/www/html</span>
+      <span class="end">unarchive</span>:
+        <span class="end">src</span>: <span class="value">https://github.com/bcit-ci/CodeIgniter/archive/3.1.5.zip </span>
+        <span class="end">dest</span>: <span class="value">/var/www/html </span>
+        <span class="end">remote_src</span>: <span class="ip">yes</span>
+    - <span class="end">name</span>: <span class="value">Change the files ownership to be owned by vagrant </span>
+      <span class="end">file</span>:
+        <span class="end">path</span>: <span class="value">/var/www/html</span>
+        <span class="end">owner</span>: <span class="value">vagrant</span>
+        <span class="end">group</span>: <span class="value">vagrant</span>
+        <span class="end">recurse</span>: <span class="ip">yes</span></li>
+                    </ul>
+
+            <p style="font-size:14px"><b>name</b> - package names to be installed with yum
+                            <br><b>unarchive</b> - to use unzip module  
+                            <br><b>src</b> - from where you get the file to be unzipped 
+                            <br><b>dest</b> - to where you unzip 
+                            <br><b>remote_src: yes</b> - to identify the file to be unarchived is not a local file from remote source 
+                            <br><b>file</b> - to set attributes of files
+                            <br><b>path</b> - path to the file being managed
+                            <br><b>owner</b> - user that should own the file/directory
+                            <br><b>group</b> - user of the group that should own the file/directory
+                            <br><b>recurse: yes</b> - to apply the change of ownership to also rest of files underneath of directory specified in path </p>
+                    
+                    <ul style= "list-style-type:disc">
+                        <li>Change web home directory to CodeIgniter and Ugly URL to Pretty URL modification 
+                        <pre id=block>
+    - <span class="end">name</span>: <span class="value">Change the web home directory to point at /var/www/html/CodeIgniter-3.1.5</span>
+      <span class="end">lineinline</span>: 
+        <span class="end">path</span>: <span class="value">/etc/httpd/conf/httpd.conf</span>
+        <span class="end">regexp</span>: <span class="value">'^.*DocumentRoot "/var/www/html".*$'</span>
+        <span class="end">line</span>: <span class="value">DocumentRoot "var/www/html/CodeIgniter-3.1.5"</span>
+        <span class="end">state</span>: <span class="value">present</span>
+      <span class="end">notify</span>:
+        - <span class="value">restart Apache</span>
+    - <span class="end">name</span>: <span class="value">Ensure that mod_rewrite is enabled in Apache</span>
+      <span class="end">lineinline</span>: 
+        <span class="end">path</span>: <span class="value">/etc/httpd/conf.modules.d/00-base.conf</span>
+        <span class="end">regexp</span>: <span class="value">'^.*rewrite_module.*$'</span>
+        <span class="end">line</span>: <span class="value">'LoadModule rewrite_module modules/mod_rewrite.so'</span>
+        <span class="end">state</span>: <span class="value">present</span></li>
+                    </ul>
+
+            <p style="font-size:14px"><b>lineinline</b> - function to manage lines in file
+                            <br><b>path</b> - file to be managed 
+                            <br><b>regexp</b> - regular expression to find line to be modified 
+                            <br>To search every line with whole text indicated via regular expression starting from ^.* ending with .*$ 
+                            <br><b>line</b> - line to be replaced with regexp in file 
+                            <br><b>state: present</b> - to check line is there: if not there, to add it; if there, to change it.
+                            <br><b>notify</b> - to trigger an action to handlers module
+                            <br>mod_rewrite provides a way to rewrite URLs, it's already uncommented in 00-base.conf file however this step is required to be sure it's enabled. 
+                            <br><b>Ugly URL</b> - www.example.com/index.php?key1=val1&key2=val2
+                            <br><b>Pretty URL</b> - www.example.com/key1/val1/key2/val2</p>
+
+                    <ul style= "list-style-type:disc">
+                        <li>Adding handlers module between 'become: yes' and 'tasks' in existing code</li>
+                        <pre id=block><font color="#A0A0A0">- hosts: webservers
+  become: yes </font>
+  <span class="end">handlers</span>: 
+    - <span class="end">name</span>: <span class="value">restart Apache</span>
+      <span class="end">service</span>: <span class="value">name=httpd state=restarted</span>
+  <font color="#A0A0A0">tasks</span>:</font></pre>
+                    </ul>
+
+            <p style="font-size:14px"><b>handlers</b> -  to identify list of tasks triggered by notify
+                            <br><b>name:</b> - should be same as notify action name
+                            <br><b>state=restarted</b> - to restart Apache specified as <b>name=httpd</b> 
+                            </p>
+
+                    <ul style= "list-style-type:disc">
+                        htaccess file creation to invoke rewrite rule as second step of URL modification
+                        <li style="margin-top: 0px">Right click on lamp folder > New File > Copy data below to file > File > Save As... > File name = htaccess > Save </li> 
+                        <pre id=block>RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]</pre>    
+                    </ul>
+
+            <p style="font-size:14px"><b>RewriteEngine on</b> - enables mod_rewrite
+                            <br><b>RewriteCond $1 !^(index\.php|resources|robots\.txt)</b> - a condition to rewrite as long as $1 doesn't equal on of the files listed to the right of the condition or allow these directories and files to be displayed directly
+                            <br><b>RewriteCond %{REQUEST_FILENAME} !-f</b> - a condition to requested filename is not an existing file
+                            <br><b>RewriteCond %{REQUEST_FILENAME} !-d</b> - a condition to requested filename is not an existing directory 
+                            <br><b>RewriteRule ^(.*)$ index.php/$1 [L,QSA]</b> -  rewrite URL </b> as appending any query strings to the request - <b>QSA</b> and how to add the parameter - <b>$1</b> with index.php in whole requested path as one parameter - <b>^(.*)$</b> then stop processing this .htaccess file - <b>L</b> </p>
+
+                    <ul style= "list-style-type:disc">
+                        <li>Copy & Allow htaccess to CodeIgniter</li>
+                        <pre id=block>
+    - <span class="end">name</span>: <span class="value">Copy htaccess to CodeIgniter</span>
+      <span class="end">copy</span>: 
+        <span class="end">src</span>: <span class="value">htaccess</span>
+        <span class="end">dest</span>: <span class="value">/var/www/html/CodeIgniter-3.1.5/.htaccess</span>
+        <span class="end">owner</span>: <span class="value">vagrant</span>
+        <span class="end">group</span>: <span class="value">vagrant</span>
+    - <span class="end">name</span>: <span class="value">Allow .htaccess file to be used</span>
+      <span class="end">lineinline</span>: 
+        <span class="end">path</span>: <span class="value">/etc/httpd/conf/httpd.conf</span>
+        <span class="end">insertafter</span>: <span class="value">'&lt;/Directory&gt;'</span>
+        <span class="end">line</span>: <span class="end">|</span>
+          <span class="value">&lt;Directory "/var/www/html/CodeIgniter-3.1.5"&gt;
+            AllowOverride all
+          &lt;/Directory&gt;</span>
+      <span class="end">notify</span>:
+        - <span class="value">restart Apache</span></ul>
+
+            <p style="font-size:14px"><b>copy</b> - module to copy local file to remote machine
+                            <br><b>src</b> - filename to be copied
+                            <br><b>dest</b> - to where you copy
+                            <br><b>insertafter</b> - to insert the line after a specified string
+                            <br><b>line: | </b> -  to add more then one line </p>
+
+            <p>So far all steps in application.yml are done to configure web/application server, we can go through running playbook.</p>
+                    
+                    <ul style= "list-style-type:disc">   
+                        <li>To run playbook for application.yml file,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ansible-playbook /vagrant/application.yml</code></pre>
+                    </ul>
+
+            <p>It will take some time to complete process and in prompt task names will showed up while proceeding. Thus every step can be easily followed to confirm it's ok or to look into which step is causing failure. After all process is done, we can check further web/application server is ready. </p>
+                   
+                    <ul style= "list-style-type:disc">   
+                        <li>To check status of Apache,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ssh apache</code></pre>
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> sudo systemctl status httpd</code></pre>
+                    </ul>
+
+             <p>In output, Started The Apache HTTP Server. is showed up and it works as we expected.</p>
+                    
+                    <ul style= "list-style-type:disc">   
+                        <li>To check EPEL and Webtatic repositories,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> cd /etc/yum.repos.d/</code></pre>
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> ls -l</code></pre>
+                    </ul>
+
+             <p>epel.repo and webtatic.repo are showed up in yum repository list as we expected.</p>
+                    
+                    <ul style= "list-style-type:disc">   
+                        <li>To check PHP is installed,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> php -v</code></pre>
+                    </ul>
+
+             <p>PHP version number is appeared in output to confirm installation.</p>
+                
+
+                    <ul style= "list-style-type:square">   
+                        <li>To check ownership of /var/www/html and CodeIgniter directory & its sub-folders,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> ls -l /var/www/html</code></pre>
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> ls -l /var/www/html/CodeIgniter-3.1.5/</code></pre>
+                    </ul>
+
+             <p>First command will give CodeIgniter directory in list owned by vagrant for user and group. Second command is to check vagrant user & group for sub-folders of CodeIgniter as well.</p>
+                    
+                    <ul style= "list-style-type:disc">   
+                        <li>To check CodeIgniter is assigned to web home directory,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> vim /etc/httpd/conf/httpd.conf</code></pre>
+                        <ul style="list-style-type:circle">
+                            <li>Press <kbd>/</kbd> to use search mode in vim editor and type DocumentRoot.</li>
+                            <li>Press <kbd>n</kbd> for next result or type <kbd>N</kbd> for previous result.</li>
+                        </ul>
+                    </ul>
+
+             <p>DocumentRoot text will be highlighted when you search it, you can confirm it's changed to "/var/www/html/CodeIgniter-3.1.5" from default page "/var/www/html" as we are intended.</p>
+             <div id=note><strong>Note:</strong> Also as typing localhost:8080 in web browser, it can be checked that CodeIgniter is home page now. </div>
+                    
+                    <ul style= "list-style-type:disc">   
+                        <li>To check mod_rewrite is enabled,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> vim /etc/httpd/conf.modules.d/00-base.conf</code></pre>
+                    </ul>
+
+             <p>mod_rewrite.so can be searched to see it's in there and uncommented.</p>
+                   
+                    <ul style= "list-style-type:disc">   
+                        <li>To check permission to the use of .htaccess file,</li> 
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> vim /etc/httpd/conf/httpd.conf</code></pre>
+                    </ul>
+
+             <p>When you search AllowOverride, you will see it's added after the latest &lt;/Directory&gt; line.</p>
+                    
+                    <ul style= "list-style-type:disc">
+                       <br><b>database.yml</b> 
+                       <br>database configuration management including MariaDB installation ensuring it's started and enabled, assigning root password for MySQL, uploading my.cnf as well, creating application database and user & password and also database.php credentials update to connect database server.
+
+                        <li>Right click on lamp folder > New File > File > Save As... > File name = database.yml > Save</li>
+                    </ul>
+
+            <p style= "margin-top:-10px;">database.yml file is located as sub-file of lamp folder and ready to write. </p> 
+                    
+                    <ul style="list-style-type:disc">
+                        <li> MariaDB installation, started & enabled and set root password for MySQL with also my.cnf uploading       
+                        <pre id=block>- <span class="end">hosts</span>: <span class="value">databases</span>
+  <span class="end">become</span>: <span class="ip">yes</span>
+  <span class="end">tasks</span>:
+    - <span class="end">name</span>: <span class="value">Ensure that MariaDB is installed</span>
+      <span class="end">yum</span>: <span class="value">name=httpd state=present</span>
+    - <span class="end">name</span>:
+        - <span class="value">mariadb-server</span>
+        - <span class="value">MySQL-python</span>
+    - <span class="end">name</span>: <span class="value">Ensure that MariaDB is started and enabled</span>
+      <span class="end">service</span>: <span class="value">name=httpd state=present enabled=yes</span>
+    - <span class="end">name</span>: <span class="value">Set the root password for MySQL </span>
+      <span class="end">mysql_user</span>:
+        <span class="end">name</span>: <span class="value">root</span>
+        <span class="end">password</span>: <span class="value">admin</span>
+        <span class="end">state</span>: <span class="value">present</span>
+    - <span class="end">name</span>: <span class="value">Upload the .my.cnf file to save the credentials</span>
+      <span class="end">copy</span>:
+        <span class="end">src</span>: <span class="value">my.cnf</span>
+        <span class="end">dest</span>: <span class="value">/root/.my.cnf </span>
+        <span class="end">owner</span>: <span class="value">root</span>
+        <span class="end">mode</span>: <span class="value">0600 </span></li>
+
+                   
+                        <br>my.cnf file creation for root password
+                        <li style="margin-top: 0px">Right click on lamp folder > New File > Copy data below to file > File > Save As... > File name = my.cnf > Save</li>
+                    <pre id=block><code>[client]
+user=root
+password=admin
+</code></pre>
+                    </ul>
+
+            <p style="font-size:14px">MariaDB is free source edition of MySQL
+                <br><b>MySQL-python</b> - it's required to use mysql_user services/modules
+                            <br><b>mysql_user</b> - to manage user and password in MySQL database, password is assigned for root user because root user has empty password as default.
+                            <br>root/admin user can not login any remote host/machine, it's just allowed to login where database is installed  
+                            <br><b>state: present</b> - to make the user exist
+                            <br><b>my.cnf</b> - other way to assign password for root user as credentials file for MariaDB
+                            <br><b>owner: root</b> - root is default user however we confirm it with this step 
+                            <br><b>mode: 0600</b> - read/write permission for only owner not other user & group</p>
+                   
+                    <ul style= "list-style-type:disc">
+                        <li>Create application database & user and remove unknown accounts
+                        <pre id=block>
+    - <span class="end">name</span>: <span class="value">Remove anonymous accounts</span>
+      <span class="end">mysql_user</span>: 
+         <span class="end">name</span>: <span class="value">''</span>
+         <span class="end">host_all</span>: <span class="value">yes</span>
+         <span class="end">state</span>: <span class="value">absent</span>
+    - <span class="end">name</span>: <span class="value">Create application database </span>
+      <span class="end">mysql_db</span>:
+        <span class="end">name</span>: <span class="value">ci_database</span>
+        <span class="end">state</span>: <span class="value">present</span>
+    - <span class="end">name</span>: <span class="value">Create an application user </span>  
+      <span class="end">mysql_user</span>:
+        <span class="end">name</span>: <span class="value">ci_user</span>
+        <span class="end">password</span>: <span class="value">cipassword</span>
+        <span class="end">host</span>: <span class="value">'%'</span>
+        <span class="end">priv</span>: <span class="value">ci_database.*:ALL</span>
+        <span class="end">state</span>: <span class="value">present</span></li>
+                    </ul>
+
+            <p style="font-size:14px"><b>name: ''</b> - to identify anonymous user accounts
+                            <br><b>host_all: yes</b> - to apply removing to all hostnames 
+                            <br><b>state: absent</b> - to remove account
+                            <br><b>mysql_db</b> - module to create database
+                            <br>Application user and password are created to connect database server(mysql) from application server(apache). MariaDB was installed in application server as package via application.yml. 
+                            <br><b>host: '%'</b> - to connect all hosts with specified application user and password
+                            <br><b>priv: ci_database.*:ALL</b> - privilege to access all tables of application database ci_database
+                           </p>
+
+            <p style="margin-top: 15px">CodeIgniter database credentials should be configured to it's able to connect database server. database.php file containing credentials will be copied to lamp folder, edited and uploaded again via application.yml updated with proper values.</p>
+
+                    <ul style= "list-style-type:disc"> 
+                    <li>While in agent server to copy database.php to under /vagrant accessible in lamp folder,</li> 
+                    <pre id=code><code><font color="gray">$</font> scp apache:/var/www/html/CodeIgniter-3.1.5/application/config/database.php /vagrant/</code></pre>
+                        <br>In SublimeText to open database.php,
+                        <li style="margin-top:1px">File > Open File > Select lamp folder > database.php</li> 
+                        <li>Edit credentials values in database.php as below and Save,</li>
+                        <pre id=block><code>   <span class="value"> 'hostname'</span> <span class="end">=></span> <span class="value">'192.168.33.30'</span>,
+    <span class="value">'username'</span> <span class="end">=></span> <span class="value">'ci_user'</span>,
+    <span class="value">'password'</span> <span class="end">=></span> <span class="value">'cipassword'</span>,
+    <span class="value">'database'</span> <span class="end">=></span> <span class="value">'ci_database'</span>,
+</code></pre>           
+                        <li>To upload database.php, add this step below to bottom of <b>application.yml</b>,</li>
+                        <pre id=block><font color="#A0A0A0">      notify: 
+        - restart Apache </font>
+    - <span class="end">name</span>: <span class="value">Upload the database.php file</span>
+      <span class="end">copy</span>: 
+         <span class="end">src</span>: <span class="value">database.php</span>
+         <span class="end">dest</span>: <span class="value">/var/www/html/CodeIgniter-3.1.5/application/config/database.php</span>
+         <span class="end">owner</span>: <span class="value">vagrant</span>
+         <span class="end">group</span>: <span class="value">vagrant</span></ul>
+
+            <p>When we run <code>ansible-playbook /vagrant/application.yml</code> on agent server again, database.php will be uploaded with updated credentials values. To check, login to webserver with <code>ssh apache</code> and run <code>vim /var/www/html/CodeIgniter-3.1.5/application/config/database.php</code> You will see that credential values are same as we updated above.</code> </p>
+            
+            <p>Finally we have completed database configuration management. We can go through running playbook for database.yml.</p>
+
+                    <ul style= "list-style-type:disc">
+                    <li>To run playbook for database.yml file,</li> 
+                    <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ansible-playbook /vagrant/database.yml</code></pre>
+                    </ul>
+
+            <p>It will take some time to complete process same as applicaton.yml. After completed, we can check further database server and  connection between application and database.</p>
+                
+                    <ul style= "list-style-type:disc">
+                    <li>To check root password,</li> 
+                    <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ssh mysql</code></pre>
+                    <pre id=code><code><font color="gray">[vagrant@mysql ~]$</font> mysql -u root -padmin</code></pre>
+                    </ul>
+
+            <p>MariaDB[(none)]> prompt is showed up. In database server, we are logged into MariaDB with root user and admin password. To exit MariaDB, type exit or \q  </p>
+
+                     <ul style= "list-style-type:disc">
+                    <li>To check connection to database server with application user & password,</li> 
+                    <pre id=code><code><font color="gray">[vagrant@agent ~]$</font> ssh apache</code></pre>
+                    <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> mysql -u ci_user -pcipassword -h 192.168.33.30</code></pre>
+                    </ul>
+
+            <p>MariaDB[(none)]> prompt is showed up. From web/application server we are logged into MariaDB as connecting database server with ci_user user, cipassword password and 192.168.33.30 IP number of database server. </p>
+
+                <ul style= "list-style-type:square">
+                    <li><b><big></a>Integrating Ansible with Vagrant </big></b> 
+                </ul> 
+
+                    <div id=newline>So far we have created three VMs for database, web/application and agent server. Over agent server, other both servers are managed and configured according to specified playbooks for each. Actually LAMP stack is ready to use however in this case our intention is to automate to all process integrating ansible with vagrant. </div>
+                   
+                    <div id=newline>At this time we will launch web/application and database servers directly over local machine not an agent server. So we need to be sure that ansible is installed in local machine that we use MacOSX. Ansible can be installed as running <code>sudo easy_install pip </code> and <code>sudo pip install ansible --quiet</code> commands in order via terminal easily because Python is already installed as default on MacOSX. Lastly with <code>ansible --version</code> command as checking version number, installation is confirmed.
+                     </div>
+
+                    <div id=newline>Vagrantfile will be modified to run playbooks, thus <code>vagrant up</code> command will be sufficient to launch pre-configured LAMP stack environment automatically. </div>
+
+                    <ul style= "list-style-type:disc">
+                        
+                        <li style= "margin-top:10px">Before integrating, apache and mysql VMs are supposed to be destroyed over terminal,     
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant destroy web</code></pre>  
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant destroy db</code></pre>
+                        
+                        <li>Open Vagrantfile in lamp folder to add playbook integratings accordingly,</li>         
+                        <pre id=block><font color="#A0A0A0">config.vm.define "agent" do |<i>agent</i>|
+ agent.vm.hostname = "agent"
+ agent.vm.network "private_network", ip: "192.168.33.10"
+end
+config.vm.define "web" do |<i>web</i>|
+ web.vm.hostname = "apache"
+ web.vm.network "private_network", ip: "192.168.33.20"
+ web.vm.network "forwarded_port", guest: 80, host: 8080</span></font>
+ web.vm.provision <span class="value">"ansible"</span> <span class="end">do</span> <span class="name2">|<i>ansible</i>|</span>
+   ansible.playbook <span class="end">=</span> <span class="value">"application.yml"</span>
+ <span class="end">end</span>
+<font color="#A0A0A0">end
+config.vm.define "db" do |<i>db</i>|
+ db.vm.hostname = "mysql"
+ db.vm.network "private_network" , ip: "192.168.33.30"</font>
+ db.vm.provision <span class="value">"ansible"</span> <span class="end">do</span> <span class="name2">|<i>ansible</i>|</span>
+   ansible.playbook <span class="end">=</span> <span class="value">"database.yml"</span>
+ <span class="end">end</span>
+<font color="#A0A0A0">end</font></pre>
+                     </ul> 
+
+            <p>Vagrantfile is ready however we need to change hosts value in playbooks. With latest changes, Vagrantfile is already updated according to which VM will be configured by specific playbook. On the other hand, webservers and databases values are identified in etc/hosts and etc/ansible/host on agent server that we will not use to connect web/application and database server over it at this time. I mean local machine will not figure out these hosts so changing value to all is required. </p>
+                    <ul style= "list-style-type:disc">   
+                        <li>To change hosts to all from webservers value in application.yml</li>
+                            <pre id=block>- <span class="end">hosts</span>: <span class="value">all</span>
+  <font color="#A0A0A0">become: yes 
+  handlers: 
+    - name: restart Apache
+      service: name=httpd state=restarted
+  tasks:</font></pre>
+
+                        <li>To change hosts to all from databases value in database.yml</li>
+                            <pre id=block>- <span class="end">hosts</span>: <span class="value">all</span>
+  <font color="#A0A0A0">become: yes 
+  tasks:</font></pre>
+                    </ul>
+                       
+            <p>All changes are completed and ready to run.</p>
+
+                    <ul style= "list-style-type:disc">   
+                        <li>To bring machines up with pre-configured,</li>
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant up</code></pre> 
+                    </ul>
+
+            <p>While Vagrant is creating VMs also Ansible will run playbooks that specified to each VMs. After completed, we can confirm that they are accessible and configured properly. </p>
+
+                    <ul style= "list-style-type:disc">
+                        <li>To check web/application server login and connection to database server,</li>
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant ssh web </code></pre>
+                        <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> mysql -u ci_user -pcipassword -h 192.168.33.30</code></pre>
+                    </ul>
+
+            <p>MariaDB[(none)]> prompt is showed up so connection is confirmed to database server with database.php credentials.</p>
+
+                    <ul style= "list-style-type:disc">
+                        <li>To check database server login and root access with password we assigned,</li>
+                        <pre id=code><code><font color="gray">[:lamp]$</font> vagrant ssh db</code></pre>
+                        <pre id=code><code><font color="gray">[vagrant@mysql ~]$</font> mysql -u root -padmin</code></pre>
+                    </ul>                  
+
+            <p>MariaDB[(none)]> prompt is showed up so we can confirm that database server is configured with my.cnf</p>
+
+            <p>Finally, we can check access to <b>localhost:8080</b> in web browser; as we set, CodeIgniter will welcome us. </p>
+
+             <p class="addition">In conclusion, LAMP stack is prepared in two ways; setting up VMs with Vagrant and configuration with Ansible over agent server, other one is integrating Ansible with Vagrant accessible over local machine directly. 
+            <br>You can find all required files that we worked on from <a href="https://github.com/GurayCetin/Vagrant-Ansible-LAMP" target="_blank">here</a>
+             <br>Thanks!</p>
+
+                    <a class="icon" href="blog.html">
+                    <img src="images/back1.png" width="35" height="35">
+                    </a>
+                    <a class="icon" href="index.html" >
+                    <img src="images/house.png" width="35" height="35">
+                    </a>
+                </ul>
+        </div>
+        
+    </div>
+
+<script src="href.js"> </script>
+
+</body>
+
+</html>
