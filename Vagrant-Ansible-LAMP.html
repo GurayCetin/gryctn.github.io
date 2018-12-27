@@ -364,7 +364,7 @@ nav ul li ul li:hover ul li{
                 
         <div id="objective" >
             <p>
-                Vagrant and Ansible are both of favourite tools in DevOps culture. Vagrant is to automate infrastructure provisioning your as working with virtualization platform VirtualBox. Ansible is configuration management tool that in our case lamp stack server will be installed with its help on different VMs that created on Vagrant. LAMP stands for Linux, Apache, MySQL, PHP. 
+                Vagrant and Ansible are both of favourite tools in DevOps culture. Vagrant is to automate infrastructure provisioning your as working with virtualization platform VirtualBox. Ansible is configuration management tool that in our case lamp stack server will be configured with its help on specific VMs that created on Vagrant. LAMP stands for Linux, Apache, MySQL, PHP. 
                 
                 <ul style= "list-style-type:square">
                     <li><b><big></a>Setting up Centos VMs over Vagrant </big></b></li>
@@ -377,7 +377,7 @@ nav ul li ul li:hover ul li{
 
                     <ul style= "list-style-type:disc">
                         
-                        <li style= "margin-top:10px">To start with creating project folder, in terminal;     
+                        <li style= "margin-top:10px">To start with creating project folder, in terminal;
                         <pre id=code><code><font color="gray">$</font> mkdir lamp</code></pre>  
                         <pre id=code><code><font color="gray">$</font> cd lamp</code></pre>
                         
@@ -388,7 +388,8 @@ nav ul li ul li:hover ul li{
                         <font color="#666666"><pre id=code-optional><code>$ export http_proxy=PROXY_ADDRESS:PROXY_PORT </code></pre>
                         <pre id=code-optional><code>$ export https_proxy=PROXY_ADDRESS:PROXY_PORT </code></pre>    
                         <pre id=code-optional><code>$ vagrant plugin install vagrant-proxyconf</code></pre>
-                        Note: This proxy settings is active as long as the terminal session is open. When you restart your terminal session, these proxy settings for http & https should be implemented again. </font>
+                        
+                        <div id=newline>Note: This proxy settings is active as long as the terminal session is open. When you restart your terminal session, these proxy settings for http & https should be implemented again. </div></font>
 
                         
                         <br>Then Vagrantfile created in lamp directory should be opened in text editor that I use SublimeText to configure.
