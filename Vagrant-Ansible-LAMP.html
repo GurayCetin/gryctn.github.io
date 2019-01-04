@@ -627,22 +627,22 @@ mysql
                         <li>Change web home directory to CodeIgniter and Ugly URL to Pretty URL modification 
                         <pre id=block>
     - <span class="end">name</span>: <span class="value">Change the web home directory to point at /var/www/html/CodeIgniter-3.1.5</span>
-      <span class="end">lineinline</span>: 
+      <span class="end">lineinfile</span>: 
         <span class="end">path</span>: <span class="value">/etc/httpd/conf/httpd.conf</span>
         <span class="end">regexp</span>: <span class="value">'^.*DocumentRoot "/var/www/html".*$'</span>
-        <span class="end">line</span>: <span class="value">DocumentRoot "var/www/html/CodeIgniter-3.1.5"</span>
+        <span class="end">line</span>: <span class="value">DocumentRoot "/var/www/html/CodeIgniter-3.1.5"</span>
         <span class="end">state</span>: <span class="value">present</span>
       <span class="end">notify</span>:
         - <span class="value">restart Apache</span>
     - <span class="end">name</span>: <span class="value">Ensure that mod_rewrite is enabled in Apache</span>
-      <span class="end">lineinline</span>: 
+      <span class="end">lineinfile</span>: 
         <span class="end">path</span>: <span class="value">/etc/httpd/conf.modules.d/00-base.conf</span>
         <span class="end">regexp</span>: <span class="value">'^.*rewrite_module.*$'</span>
         <span class="end">line</span>: <span class="value">'LoadModule rewrite_module modules/mod_rewrite.so'</span>
         <span class="end">state</span>: <span class="value">present</span></li>
                     </ul>
 
-            <p style="font-size:14px"><b>lineinline</b> - function to manage lines in file
+            <p style="font-size:14px"><b>lineinfile</b> - function to manage lines in file
                             <br><b>path</b> - file to be managed 
                             <br><b>regexp</b> - regular expression to find line to be modified 
                             <br>To search every line with whole text indicated via regular expression starting from ^.* ending with .*$ 
@@ -694,7 +694,7 @@ RewriteRule ^(.*)$ index.php/$1 [L,QSA]</pre>
         <span class="end">owner</span>: <span class="value">vagrant</span>
         <span class="end">group</span>: <span class="value">vagrant</span>
     - <span class="end">name</span>: <span class="value">Allow .htaccess file to be used</span>
-      <span class="end">lineinline</span>: 
+      <span class="end">lineinfile</span>: 
         <span class="end">path</span>: <span class="value">/etc/httpd/conf/httpd.conf</span>
         <span class="end">insertafter</span>: <span class="value">'&lt;/Directory&gt;'</span>
         <span class="end">line</span>: <span class="end">|</span>
@@ -755,7 +755,7 @@ RewriteRule ^(.*)$ index.php/$1 [L,QSA]</pre>
                         <li>To check CodeIgniter is assigned to web home directory,</li> 
                         <pre id=code><code><font color="gray">[vagrant@apache ~]$</font> vim /etc/httpd/conf/httpd.conf</code></pre>
                         <ul style="list-style-type:circle">
-                            <li>Press <kbd>/</kbd> to use search mode in vim editor and type DocumentRoot.</li>
+                            <li>Press <kbd>/</kbd> to use search mode in vim editor and type DocumentRoot & press <kbd>Enter</kbd></li>
                             <li>Press <kbd>n</kbd> for next result or type <kbd>N</kbd> for previous result.</li>
                         </ul>
                     </ul>
@@ -792,10 +792,10 @@ RewriteRule ^(.*)$ index.php/$1 [L,QSA]</pre>
   <span class="end">become</span>: <span class="ip">yes</span>
   <span class="end">tasks</span>:
     - <span class="end">name</span>: <span class="value">Ensure that MariaDB is installed</span>
-      <span class="end">yum</span>: <span class="value">name=httpd state=present</span>
-    - <span class="end">name</span>:
-        - <span class="value">mariadb-server</span>
-        - <span class="value">MySQL-python</span>
+      <span class="end">yum</span>: <span class="value"></span>
+        <span class="end">name</span>:
+          - <span class="value">mariadb-server</span>
+          - <span class="value">MySQL-python</span>
     - <span class="end">name</span>: <span class="value">Ensure that MariaDB is started and enabled</span>
       <span class="end">service</span>: <span class="value">name=httpd state=present enabled=yes</span>
     - <span class="end">name</span>: <span class="value">Set the root password for MySQL </span>
@@ -914,9 +914,22 @@ password=admin
 
                     <div id=newline>So far we have created three VMs for database, web/application and agent server. Over agent server, other both servers are managed and configured according to specified playbooks for each. Actually LAMP stack is ready to use however in this case our intention is to automate to all process integrating ansible with vagrant. </div>
                    
-                    <div id=newline>At this time we will launch web/application and database servers directly over local machine not an agent server. So we need to be sure that ansible is installed in local machine that we use MacOSX. Ansible can be installed as running <code>sudo easy_install pip </code> and <code>sudo pip install ansible --quiet</code> commands in order via terminal easily because Python is already installed as default on MacOSX. Lastly with <code>ansible --version</code> command as checking version number, installation is confirmed.
-                     </div>
+                    <div id=newline>At this time we will launch web/application and database servers directly over local machine not an agent server. So we need to be sure that ansible is installed in local machine that we use MacOSX. </div>
+                    
+                    <ul style= "list-style-type:disc">
+                        <li style= "margin-top:10px">To install Homebrew - package manager for MacOSX, in terminal;
+                        <pre id=code><code><font color="gray">$</font> /usr/bin/ruby -e "$(curl -fsSL <br>https://raw.githubusercontent.com/Homebrew/install/master/install)"</code></pre>
+                    </ul>
 
+            <p>Press Enter and type your password when it requires to complete installation.</p>
+                    
+                    <ul style= "list-style-type:disc">  
+                        <li>To install ansible with homebrew,</li>      
+                        <pre id=code><code><font color="gray">$</font> brew install ansible</code></pre>
+                    </ul>
+                        
+            <p>Lastly with <code>ansible --version</code> command as checking version number, installation can be confirmed.</p>
+                     
                     <div id=newline>Vagrantfile will be modified to run playbooks, thus <code>vagrant up</code> command will be sufficient to launch pre-configured LAMP stack environment automatically. </div>
 
                     <ul style= "list-style-type:disc">
@@ -970,7 +983,7 @@ config.vm.define "db" do |<i>db</i>|
                         <pre id=code><code><font color="gray">[:lamp]$</font> vagrant up</code></pre> 
                     </ul>
 
-            <p>While Vagrant is creating VMs also Ansible will run playbooks that specified to each VMs. After completed, we can confirm that they are accessible and configured properly. </p>
+            <p>While Vagrant is creating VMs also Ansible will run playbooks that specified to each VMs. After completed, we can confirm that they are accessible and configured properly. Vagrant may give error in some cases and quit unexpectedly, you can run <code>vagrant provision</code> command to complete process somehow. Another way to handle instant errors, over VirtaulBox GUI you are able to power off & remove VMs so you can bring VMs up from scratch with <code>vagrant up</code> command.</p>
 
                     <ul style= "list-style-type:disc">
                         <li>To check web/application server login and connection to database server,</li>
